@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Masuk</title>
+<style>
+  :root {
+    --bg: #0b1020;
+    --card: #ffffff;
+    --text: #1a1f36;
+    --muted: #6b7280;
+    --border: #e5e7eb;
+    --primary: #4f46e5;
+    --primary-hover: #4338ca;
+    --danger: #dc2626;
+    --radius: 14px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 24px;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    background: radial-gradient(circle at 20% 20%, #1e2a5a 0%, var(--bg) 55%);
+    color: var(--text);
+  }
+
+  .card {
+    width: 100%;
+    max-width: 400px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 36px 32px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, .35);
+  }
+
+  .brand {
+    width: 46px;
+    height: 46px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    display: grid;
+    place-items: center;
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    margin-bottom: 18px;
+  }
+
+  h1 { font-size: 22px; letter-spacing: -.01em; }
+  .subtitle { color: var(--muted); font-size: 14px; margin-top: 6px; }
+
+  form { margin-top: 26px; display: grid; gap: 16px; }
+
+  .field { display: grid; gap: 6px; }
+  label { font-size: 13px; font-weight: 600; }
+
+  .input-wrap { position: relative; display: flex; align-items: center; }
+
+  input[type="email"],
+  input[type="password"],
+  input[type="text"] {
+    width: 100%;
+    padding: 12px 14px;
+    font-size: 15px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    outline: none;
+    transition: border-color .15s, box-shadow .15s;
+    font-family: inherit;
+  }
+
+  input:focus {
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, .15);
+  }
+
+  input[aria-invalid="true"] { border-color: var(--danger); }
+
+  .input-wrap input[type="password"],
+  .input-wrap input[type="text"] { padding-right: 66px; }
+
+  .toggle {
+    position: absolute;
+    right: 8px;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 8px;
+    border-radius: 6px;
+  }
+  .toggle:hover { background: rgba(79, 70, 229, .08); }
+
+  .row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 13px;
+  }
+
+  .checkbox { display: flex; align-items: center; gap: 8px; color: var(--muted); cursor: pointer; }
+  .checkbox input { accent-color: var(--primary); width: 15px; height: 15px; }
+
+  a { color: var(--primary); text-decoration: none; font-weight: 600; }
+  a:hover { text-decoration: underline; }
+
+  .btn {
+    width: 100%;
+    padding: 13px 16px;
+    border: none;
+    border-radius: 10px;
+    background: var(--primary);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: background .15s, transform .05s;
+  }
+  .btn:hover { background: var(--primary-hover); }
+  .btn:active { transform: scale(.99); }
+  .btn:disabled { opacity: .6; cursor: not-allowed; }
+
+  .error { color: var(--danger); font-size: 12.5px; min-height: 15px; }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--muted);
+    font-size: 12px;
+    margin: 4px 0;
+  }
+  .divider::before, .divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  .social { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .social button {
+    padding: 11px;
+    border: 1px solid var(--border);
+    background: #fff;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    color: var(--text);
+    transition: background .15s;
+  }
+  .social button:hover { background: #f9fafb; }
+
+  .foot { text-align: center; font-size: 13px; color: var(--muted); margin-top: 24px; }
+
+  @media (max-width: 420px) {
+    .card { padding: 28px 22px; }
+  }
+</style>
+</head>
+<body>
+
+<main class="card">
+  <div class="brand">U</div>
+  <h1>Selamat datang kembali</h1>
+  <p class="subtitle">Masuk untuk melanjutkan ke akun Anda.</p>
+
+  <form id="loginForm" novalidate>
+    <div class="field">
+      <label for="email">Email</label>
+      <div class="input-wrap">
+        <input type="email" id="email" name="email" placeholder="nama@email.com"
+               autocomplete="email" required>
+      </div>
+      <span class="error" id="emailError"></span>
+    </div>
+
+    <div class="field">
+      <label for="password">Kata sandi</label>
+      <div class="input-wrap">
+        <input type="password" id="password" name="password" placeholder="••••••••"
+               autocomplete="current-password" required>
+        <button type="button" class="toggle" id="togglePw" aria-label="Tampilkan kata sandi">Lihat</button>
+      </div>
+      <span class="error" id="passwordError"></span>
+    </div>
+
+    <div class="row">
+      <label class="checkbox">
+        <input type="checkbox" name="remember">
+        Ingat saya
+      </label>
+      <a href="#">Lupa kata sandi?</a>
+    </div>
+
+    <button type="submit" class="btn" id="submitBtn">Masuk</button>
+
+    <div class="divider">atau</div>
+
+    <div class="social">
+      <button type="button">Google</button>
+      <button type="button">GitHub</button>
+    </div>
+  </form>
+
+  <p class="foot">Belum punya akun? <a href="#">Daftar</a></p>
+</main>
+
+<script>
+  const form = document.getElementById('loginForm');
+  const email = document.getElementById('email');
+  const password = document.getElementById('password');
+  const toggle = document.getElementById('togglePw');
+  const btn = document.getElementById('submitBtn');
+
+  toggle.addEventListener('click', () => {
+    const show = password.type === 'password';
+    password.type = show ? 'text' : 'password';
+    toggle.textContent = show ? 'Sembunyi' : 'Lihat';
+    toggle.setAttribute('aria-label', show ? 'Sembunyikan kata sandi' : 'Tampilkan kata sandi');
+  });
+
+  function setError(input, el, msg) {
+    el.textContent = msg;
+    input.setAttribute('aria-invalid', msg ? 'true' : 'false');
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    let ok = true;
+
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+
+    if (!email.value.trim()) {
+      setError(email, emailError, 'Email wajib diisi.');
+      ok = false;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.value)) {
+      setError(email, emailError, 'Format email tidak valid.');
+      ok = false;
+    } else {
+      setError(email, emailError, '');
+    }
+
+    if (!password.value) {
+      setError(password, passwordError, 'Kata sandi wajib diisi.');
+      ok = false;
+    } else if (password.value.length < 8) {
+      setError(password, passwordError, 'Minimal 8 karakter.');
+      ok = false;
+    } else {
+      setError(password, passwordError, '');
+    }
+
+    if (!ok) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Memproses…';
+
+    
+    // Ganti dengan panggilan API Anda
+	setTimeout(() => {
+	  btn.disabled = false;
+	  btn.textContent = 'Masuk';
+
+	  // Simulasi respons server. Hapus saat backend siap.
+	  const user = {
+		name: email.value.split('@')[0],
+		email: email.value,
+		role: 'Kasir',
+		loginAt: new Date().toISOString()
+	  };
+
+	  localStorage.setItem('kasir_auth', JSON.stringify({
+		token: 'demo-token-' + Date.now(),
+		expiresAt: Date.now() + 8 * 60 * 60 * 1000 // 8 jam shift
+	  }));
+	  localStorage.setItem('kasir_user', JSON.stringify(user));
+
+	  location.href = 'dashboard.html';
+	}, 1200);
+
+  });
+</script>
+</body>
+</html>
